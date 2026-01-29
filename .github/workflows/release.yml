@@ -9,21 +9,21 @@ on:
 permissions:
   contents: write
 
-# Only run for the official repository
-if: github.repository_owner == 'drivercraft'
-
 jobs:
   check:
     uses: ./.github/workflows/check.yml
+    if: github.repository_owner == 'arceos-org'
 
   test:
     uses: ./.github/workflows/test.yml
     needs: check
+    if: github.repository_owner == 'arceos-org'
 
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     needs: check
+    if: github.repository_owner == 'arceos-org'
 
     steps:
       - name: Checkout code
@@ -80,6 +80,7 @@ jobs:
     name: Publish to crates.io
     runs-on: ubuntu-latest
     needs: check
+    if: github.repository_owner == 'arceos-org'
 
     steps:
       - name: Checkout code
